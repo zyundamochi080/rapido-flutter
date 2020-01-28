@@ -129,16 +129,12 @@ class _DocumentListScaffoldState extends State<DocumentListScaffold> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Home'),
+            icon: Icon(Icons.arrow_downward),
+            title: Text('Import'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            title: Text('Business'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            title: Text('School'),
+            icon: Icon(Icons.arrow_upward),
+            title: Text('Export'),
           ),
         ],
         currentIndex: _selectedIndex,
@@ -153,6 +149,7 @@ class _DocumentListScaffoldState extends State<DocumentListScaffold> {
       ),
     );
   }
+
   int _selectedIndex = 0;
   static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
@@ -162,10 +159,6 @@ class _DocumentListScaffoldState extends State<DocumentListScaffold> {
     ),
     Text(
       'Index 1: Business',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
       style: optionStyle,
     ),
   ];
