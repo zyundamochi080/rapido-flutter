@@ -166,6 +166,12 @@ class _DocumentListScaffoldState extends State<DocumentListScaffold> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      if (_selectedIndex == 1) {
+        debugPrint("hoge");
+      }
+      else {
+        debugPrint("huga");
+      }
     });
   }
 }

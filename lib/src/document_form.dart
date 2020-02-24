@@ -33,11 +33,11 @@ class _DocumentFormState extends State<DocumentForm> {
 
   List<Widget> _buildFormFields(BuildContext context) {
     List<Widget> fields = [];
-    // creat a form field for each support label
+    // create a form field for each support label
     widget.documentList.labels.keys.forEach((String label) {
       String fieldName = widget.documentList.labels[label];
       // Use the labels map to get initial values in the case
-      // where the form is editing an existig document
+      // where the form is editing an existing document
       dynamic initialValue;
       if (widget.document != null) {
         initialValue = widget.document[fieldName];
