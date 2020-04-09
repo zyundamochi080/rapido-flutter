@@ -1,4 +1,8 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:rapido/rapido.dart';
 
 // import 'package:rapido/document_list_view.dart';
@@ -104,7 +108,7 @@ class _DocumentListScaffoldState extends State<DocumentListScaffold> {
       actions += widget.additionalActions;
     }
     String _title =
-        widget.title != null ? widget.title : widget.documentList.documentType;
+    widget.title != null ? widget.title : widget.documentList.documentType;
     return Scaffold(
       appBar: AppBar(
         title: Text(_title),
@@ -151,14 +155,15 @@ class _DocumentListScaffoldState extends State<DocumentListScaffold> {
   }
 
   int _selectedIndex = 0;
-  static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const TextStyle optionStyle = TextStyle(
+      fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
-      'Index 0: Home',
+      '',
       style: optionStyle,
     ),
     Text(
-      'Index 1: Business',
+      '',
       style: optionStyle,
     ),
   ];
@@ -167,11 +172,46 @@ class _DocumentListScaffoldState extends State<DocumentListScaffold> {
     setState(() {
       _selectedIndex = index;
       if (_selectedIndex == 1) {
-        debugPrint("hoge");
+        var listLength = widget.documentList.length;
+        var tmpWriteBase = "";
+        for (var count = 0; count < listLength; count++) {
+          tmpWriteBase = tmpWriteBase + widget.documentList[count].toString() + "\n";
+        }
+        writeList(tmpWriteBase);
       }
       else {
-        debugPrint("huga");
+        readList().then((String tmp) {
+          debugPrint(tmp);
+        });
       }
     });
   }
+
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+    return directory.path;
+  }
+
+  Future<File> get _localFile async {
+    final path = await _localPath;
+    debugPrint('$path');
+    return File('$path/alcohol.txt');
+  }
+
+  Future<File> writeList(String tmp) async {
+    final file = await _localFile;
+    debugPrint("wirete");
+    return file.writeAsString('$tmp');
+  }
+
+  Future<String> readList() async {
+    try {
+      final file = await _localFile;
+      String returnString = await file.readAsString();
+      return returnString;
+    } catch (e) {
+      return null;
+    }
+  }
+
 }
